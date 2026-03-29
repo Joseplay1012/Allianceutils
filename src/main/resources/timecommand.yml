@@ -1,0 +1,15 @@
+##dias
+#segunda = "MONDAY", terça = "TUESDAY", quarta = "WEDNESDAY", quinta = "THURSDAY", sexta = "FRIDAY", sabado = "SATURDAY, domingo = "SUNDAY"
+
+
+tasks:
+  killer: #Nome de indentificação
+    useday: true
+    day: SATURDAY
+    hor: "03:41" #Horario que ira executar exemplo as 3 da tarde 15:00 etc...
+    commands: #Comandos que será executados.
+      - ''
+  sumo:
+    hor: "17:30"
+    commands:
+      - ''
