@@ -6,6 +6,11 @@ AllianceUtils is a core library for Minecraft servers (Spigot/Paper) providing e
 
 ---
 
+## Credits
+
+- Menu interface by [SimpleMineCode](https://github.com/SimpleMineCode/menu-api)  
+- LocaleAPI by [Unp1xelt](https://github.com/Unp1xelt/Locale-API/)
+
 ## Features
 
 - Modular system for managing points and rewards
