@@ -8,7 +8,7 @@ following conditions:
 1. Original Software (AllianceUtils)
    - The original AllianceUtils software **may not be sold** under any circumstances.
    - Credits to "AllianceUtils" and the original authors must remain visible in all uses.
-   - A link to the official repository or website must be provided: https://github.com/SeuUsuario/AllianceUtils
+   - A link to the official repository or website must be provided: https://github.com/Joseplay1012/Allianceutils
 
 2. Forks, Modifications, and Extensions
    - Forks, modifications, or extensions may be created and distributed **only if they are not sold**, unless prior written authorization is obtained from the original author(s).
