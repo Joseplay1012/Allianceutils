@@ -1,0 +1,32 @@
+Copyright (c) 2026 joseplay (AllianceUtils)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated extensions (the "Software"), to use, copy, and
+modify the Software for personal, non-commercial purposes, subject to the
+following conditions:
+
+1. Original Software (AllianceUtils)
+   - The original AllianceUtils software **may not be sold** under any circumstances.
+   - Credits to "AllianceUtils" and the original authors must remain visible in all uses.
+   - A link to the official repository or website must be provided: https://github.com/SeuUsuario/AllianceUtils
+
+2. Forks, Modifications, and Extensions
+   - Forks, modifications, or extensions may be created and distributed **only if they are not sold**, unless prior written authorization is obtained from the original author(s).
+   - Credits to AllianceUtils and the original authors must remain visible in all distributions, including a link to the official repository or website.
+   - If distributed for free:
+       - The full source code of the fork or extension must be provided, or a public repository link given.
+   - If distributed for sale (with authorization):
+       - Source code need not be provided, but credits and link to AllianceUtils must remain visible.
+
+3. Personal Use
+   - Individuals may use, copy, or modify the Software or its extensions privately without restriction.
+
+4. Warranty Disclaimer
+   - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+     INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+     AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES,
+     OR OTHER LIABILITY ARISING FROM THE USE OF THE SOFTWARE.
+
+5. Enforcement
+   - Any removal of credits, unauthorized sale of the original Software, or distribution of forks/extensions
+     in violation of these terms constitutes infringement and is strictly prohibited.
