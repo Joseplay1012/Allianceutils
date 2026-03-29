@@ -1,6 +1,6 @@
 # AllianceUtils
 
-[![License](https://img.shields.io/badge/License-AU--PCL-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-AU--PCL-blue.svg)](LICENSE.txt)
 
 AllianceUtils is a core library for Minecraft servers (Spigot/Paper) providing essential functionality for plugins and custom systems. It serves as a foundation for creating extensions, commands, point systems, and more while maintaining high compatibility and modularity.
 
