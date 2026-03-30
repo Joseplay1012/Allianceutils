@@ -1,5 +1,6 @@
 package net.joseplay.allianceutils.BootPlugin;
 
+import net.joseplay.allianceutils.api.chat.ChatRegisters;
 import net.joseplay.allianceutils.api.internalListener.EventManager;
 import net.joseplay.allianceutils.api.menu.MenuListener;
 import net.joseplay.allianceutils.api.pluginComunicate.PluginChannelListener;
@@ -16,7 +17,8 @@ public class RegisterEvents {
                     () -> plugin.getServer().getPluginManager().registerEvents(new MenuListener(), plugin),
                     () -> EventManager.registerListener(new PluginChannelListener(), plugin),
                     () -> RegisterWorldGuard.registerEvents(),
-                    () -> ScoreboardRegisters.registerEvents()
+                    () -> ScoreboardRegisters.registerEvents(),
+                    () -> ChatRegisters.registerEvents()
             };
 
             // Execução sequencial

@@ -1,40 +1,46 @@
-# Como Criar uma Extensão para AllianceUtils
+# How to Create an Extension for AllianceUtils
 
-**Guia completo passo a passo**  
-Este documento explica como criar uma extensão funcional para o plugin **AllianceUtils** utilizando o sistema de extensões integrado.
+**Complete step-by-step guide**
+This document explains how to create a functional extension for the **AllianceUtils** plugin using its built-in extension system.
 
-### 1. Pré-requisitos
+---
 
-- Java 17 ou superior (recomendado compatível com a versão do Spigot/Paper do servidor)
-- Um IDE (IntelliJ IDEA, Eclipse, etc.)
-- Maven ou Gradle para gerenciamento de dependências
-- O JAR do **AllianceUtils** como dependência (provided/shaded)
+## 1. Requirements
 
-### 2. Estrutura do Projeto
+* Java 21 or higher (must match your server's Spigot/Paper version)
+* An IDE (IntelliJ IDEA, Eclipse, etc.)
+* Maven or Gradle for dependency management
+* The **AllianceUtils** JAR as a dependency (`provided` scope)
 
-Crie um projeto Maven/Gradle comum com a seguinte estrutura básica:
+---
+
+## 2. Project Structure
+
+Create a standard Maven/Gradle project with the following structure:
 
 ```
-MeuPluginExtension/
+MyPluginExtension/
 ├── src/
 │   └── main/
 │       ├── java/
 │       │   └── com/
-│       │       └── seuplugin/
-│       │           └── MinhaExtensao.java
+│       │       └── yourplugin/
+│       │           └── MyExtension.java
 │       └── resources/
 │           ├── extension.yml
-│           └── config.yml (opcional, será copiado automaticamente)
-├── pom.xml (ou build.gradle)
+│           └── config.yml (optional, auto-copied on first load)
+├── pom.xml (or build.gradle)
 ```
 
-### 3. Configuração do Build (pom.xml exemplo com Maven)
+---
+
+## 3. Build Configuration (Maven example)
 
 ```xml
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.seuplugin</groupId>
-    <artifactId>MinhaExtensao</artifactId>
+    <groupId>com.yourplugin</groupId>
+    <artifactId>MyExtension</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -44,26 +50,26 @@ MeuPluginExtension/
     </properties>
 
     <dependencies>
-        <!-- AllianceUtils como provided (não será incluído no JAR final) -->
+        <!-- AllianceUtils (provided) -->
         <dependency>
-            <groupId>net.alliancecraft</groupId>
+            <groupId>net.joseplay</groupId>
             <artifactId>AllianceUtils</artifactId>
-            <version>ULTIMA_VERSAO</version>
+            <version>LATEST_VERSION</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Bukkit/Spigot API -->
+        <!-- Spigot API -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20.4-R0.1-SNAPSHOT</version> <!-- ajuste para sua versão -->
+            <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Plugin para shade se necessário (geralmente não precisa) -->
+            <!-- Optional shading (usually not required) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -72,11 +78,6 @@ MeuPluginExtension/
                     <execution>
                         <phase>package</phase>
                         <goals><goal>shade</goal></goals>
-                        <configuration>
-                            <relocations>
-                                <!-- Não relocar AllianceUtils, pois é provided -->
-                            </relocations>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -85,29 +86,33 @@ MeuPluginExtension/
 </project>
 ```
 
-### 4. Arquivo extension.yml (OBRIGATÓRIO)
+---
 
-Coloque na pasta `src/main/resources/extension.yml`:
+## 4. extension.yml (REQUIRED)
+
+Create `src/main/resources/extension.yml`:
 
 ```yaml
-name: MinhaExtensao
-main: com.seuplugin.MinhaExtensao
+name: MyExtension
+main: com.yourplugin.MyExtension
 version: 1.0.0
-description: Uma extensão de exemplo para AllianceUtils
+description: Example extension for AllianceUtils
 authors:
-  - SeuNome
+  - YourName
 ```
 
-- `name`: Nome único da extensão (usado na pasta de dados)
-- `main`: Caminho completo da classe principal
-- `version`, `description`, `authors`: Opcionais mas recomendados
+**Fields:**
 
-### 5. Classe Principal da Extensão
+* `name`: Unique extension identifier (used as data folder name)
+* `main`: Fully qualified main class
+* `version`, `description`, `authors`: Optional but recommended
 
-Crie a classe indicada no `main` do `extension.yml`:
+---
+
+## 5. Main Extension Class
 
 ```java
-package com.seuplugin;
+package com.yourplugin;
 
 import net.joseplay.allianceutils.Allianceutils;
 import net.joseplay.allianceutils.api.extensions.AlliancePlugin;
@@ -116,38 +121,38 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.EventHandler;
 
-public class MinhaExtensao extends AlliancePlugin implements Listener {
+public class MyExtension extends AlliancePlugin implements Listener {
 
    @Override
    public void onEnable(Allianceutils plugin) {
-      // Configuração padrão será criada automaticamente se existir config.yml no resources
 
-      // Registrar listener de eventos
+      // Register listeners
       Alliance.getAllianceListenerManager().registerListener(this, this);
 
-      // Registrar um comando de exemplo
-      Alliance.getAllianceCommandManager().registerCommand(this, new ComandoExemplo());
+      // Register commands
+      Alliance.getAllianceCommandManager().registerCommand(this, new ExampleCommand());
 
-      getLogger().info("MinhaExtensao foi habilitada com sucesso!");
+      getLogger().info("MyExtension enabled successfully.");
    }
 
    @Override
    public void onDisable() {
-      getLogger().info("MinhaExtensao foi desabilitada.");
+      getLogger().info("MyExtension disabled.");
    }
 
-   // Exemplo de listener
    @EventHandler
    public void onJoin(PlayerJoinEvent e) {
-      e.getPlayer().sendMessage("§aBem-vindo! Esta mensagem vem da extensão MinhaExtensao!");
+      e.getPlayer().sendMessage("§aWelcome! This message is from MyExtension.");
    }
 }
 ```
 
-### 6. Criando um Comando Personalizado
+---
+
+## 6. Creating a Custom Command
 
 ```java
-package com.seuplugin;
+package com.yourplugin;
 
 import net.joseplay.allianceutils.api.extensions.interfaces.AllianceCommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -156,62 +161,80 @@ import org.bukkit.entity.Player;
 import java.util.Collections;
 import java.util.List;
 
-public class ComandoExemplo implements AllianceCommandExecutor {
+public class ExampleCommand implements AllianceCommandExecutor {
 
    @Override
    public String getName() {
-      return "testeext"; // /testeext
+      return "testext";
    }
 
    @Override
    public List<String> alliances() {
-      return List.of("te", "extensao"); // /te ou /extensao também funcionam
+      return List.of("te", "extension");
    }
 
    @Override
    public void execute(CommandSender sender, String[] args) {
-      sender.sendMessage("§aComando da extensão executado com sucesso!");
+      sender.sendMessage("§aExtension command executed successfully!");
    }
 
    @Override
    public List<String> tabComplete(Player player, String[] args) {
-      return Collections.emptyList(); // ou sugestões personalizadas
+      return Collections.emptyList();
    }
 }
 ```
 
-### 7. Config.yml Opcional (padrão)
+---
 
-Se quiser um config.yml padrão, coloque em `src/main/resources/config.yml`:
+## 7. Optional config.yml
 
 ```yaml
-mensagem-boas-vindas: "Bem-vindo ao servidor com AllianceUtils!"
-ativar-recursos: true
+welcome-message: "Welcome to the server with AllianceUtils!"
+enable-features: true
 ```
 
-Ele será copiado automaticamente para a pasta da extensão na primeira carga.
+Access:
 
-Acesse com `getConfig().getString("mensagem-boas-vindas")`.
+```java
+getConfig().getString("welcome-message");
+```
 
-### 8. Compilar e Instalar
+---
 
-1. Compile o projeto: `mvn clean package`
-2. Copie o JAR gerado (em `target/`) para a pasta:
+## 8. Build and Install
+
+1. Build the project:
+
+   ```
+   mvn clean package
+   ```
+
+2. Move the generated JAR to:
+
    ```
    plugins/AllianceUtils/extensions/
    ```
-3. Reinicie ou recarregue o servidor (ou use `/extensions (load, reload, unload) <extensionname>` se disponível)
 
-### 9. Comandos Úteis no Servidor
+3. Reload or restart the server:
 
-- `/extensions` → Lista todas as extensões carregadas (com hover de detalhes)
-- Recarregar uma extensão específica: depende do comando principal do AllianceUtils
+   ```
+   /extensions load <name>
+   /extensions reload <name>
+   /extensions unload <name>
+   ```
 
-### Dicas Finais
+---
 
-- Sempre use os gerenciadores do `Alliance` para registrar listeners e comandos
-- Use `getLogger()` para logs com prefixo automático
-- Use os métodos `runTask*` para agendar tarefas com segurança
-- Todas as tarefas registradas via `runTaskTimer` são canceladas automaticamente no disable
+## 9. Useful Commands
 
-Pronto! Sua extensão agora está totalmente integrada ao sistema AllianceUtils.
+* `/extensions` → Lists all loaded extensions (with hover details)
+
+---
+
+## Final Notes
+
+* Always register from `Alliance` managers (never use Bukkit)
+* Avoid static state unless necessarily → extensions can be reloaded
+* Tasks created from your extension instance are **auto-cancelled on disable**
+* `config.yml` is copied automatically only on first load

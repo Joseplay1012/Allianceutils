@@ -67,6 +67,11 @@ Full JavaDoc is available at:
 
 ----------
 
+
+## Create extensions
+
+visit: [how to create extensions](src/main/java/net/joseplay/allianceutils/api/docs/extensions/HowToCreateExtension.md)
+
 ## License
 
 AllianceUtils is licensed under the **AllianceUtils Public Credit License (AU-PCL)**.

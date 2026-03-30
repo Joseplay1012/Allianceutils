@@ -1,7 +1,6 @@
 package net.joseplay.allianceutils.api.ystore;
 
-import com.ystoreplugins.ypoints.api.yPointsAPI;
-import com.ystoreplugins.ypoints.models.PlayerPoints;
+import br.com.ystoreplugins.product.ypoints.PointAPIHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -9,10 +8,18 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import java.util.UUID;
 
 public class yPointsApi {
-    public yPointsAPI getYpointsApi(){
+    public PointAPIHolder yPointsAPI;
+
+
+    public yPointsApi(){
+        this.yPointsAPI = getYpointsApi();
+    }
+
+
+    public PointAPIHolder getYpointsApi(){
         try {
-            RegisteredServiceProvider<yPointsAPI> rsp = Bukkit.getServer().getServicesManager()
-                    .getRegistration(yPointsAPI.class);
+            RegisteredServiceProvider<PointAPIHolder> rsp = Bukkit.getServer().getServicesManager()
+                    .getRegistration(PointAPIHolder.class);
             return rsp == null ? null : rsp.getProvider();
         } catch (Throwable var1) {
             return null;

@@ -6,7 +6,7 @@
 
     <groupId>net.joseplay</groupId>
     <artifactId>AllianceUtils</artifactId>
-    <version>1.7.0</version>
+    <version>1.7.1</version>
     <packaging>jar</packaging>
 
     <name>AllianceUtils</name>
@@ -31,17 +31,17 @@
 
             </plugin>
             <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>attach-sources</id>
-                    <goals>
-                        <goal>jar</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -89,6 +89,24 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
                 <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>install-alliance-utils</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>
+                                ${project.build.directory}\AllianceUtils.jar
+                            </file>
+                            <groupId>net.joseplay</groupId>
+                            <artifactId>AllianceUtils</artifactId>
+                            <version>${version}</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         <resources>
@@ -207,12 +225,12 @@
             <version>1.5.21</version>
             <scope>provided</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.spigotmc</groupId>-->
-<!--            <artifactId>spigot</artifactId>-->
-<!--            <version>1.21.10-R0.1-SNAPSHOT</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.spigotmc</groupId>-->
+        <!--            <artifactId>spigot</artifactId>-->
+        <!--            <version>1.21.10-R0.1-SNAPSHOT</version>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
@@ -310,18 +328,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>br.com.ystore</groupId>
-            <artifactId>yPlugins</artifactId>
-            <version>3.5.9</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/resources/yplugins.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>br.com.ystore</groupId>
-            <artifactId>yPoints</artifactId>
-            <version>2.4.1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/resources/yPoints-2.4.1.jar</systemPath>
+            <groupId>com.ystoreplugins</groupId>
+            <artifactId>yplugins</artifactId>
+            <version>3.6.4</version>
         </dependency>
         <dependency>
             <groupId>org.java-websocket</groupId>
