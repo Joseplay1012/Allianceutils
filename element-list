@@ -1,5 +1,6 @@
 net.joseplay.allianceutils
 net.joseplay.allianceutils.api.annotations
+net.joseplay.allianceutils.api.chat
 net.joseplay.allianceutils.api.claims
 net.joseplay.allianceutils.api.combat
 net.joseplay.allianceutils.api.combat.handlers
