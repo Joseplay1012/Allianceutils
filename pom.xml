@@ -331,6 +331,7 @@
             <groupId>com.ystoreplugins</groupId>
             <artifactId>yplugins</artifactId>
             <version>3.6.4</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.java-websocket</groupId>
