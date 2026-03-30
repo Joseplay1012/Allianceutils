@@ -42,7 +42,7 @@ Add the local JAR to your project:
 <dependency>
     <groupId>net.joseplay</groupId>
     <artifactId>allianceutils</artifactId>
-    <version>1.0.0</version>
+    <version>VERSION</version>
     <scope>system</scope>
     <systemPath>${project.basedir}/libs/AllianceUtils.jar</systemPath>
 </dependency>
