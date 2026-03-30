@@ -40,7 +40,7 @@ Add the local JAR to your project:
 
 ```xml
 <dependency>
-    <groupId>net.alliancecraft</groupId>
+    <groupId>net.joseplay</groupId>
     <artifactId>allianceutils</artifactId>
     <version>1.0.0</version>
     <scope>system</scope>
