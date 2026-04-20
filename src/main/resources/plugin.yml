@@ -1,14 +1,9 @@
 name: AllianceUtils
-version: 1.7.0
+version: 1.7.1
 main: net.joseplay.allianceutils.Allianceutils
 authors:
   - joseplay1012
 website: https://github.com/joseplay1012
-description:
-softdepend:
-  - GriefPrevention
-  - DiscordSRV
-  - mcMMO
 api-version: 1.13
 
 prefix: AllianceCraft

@@ -246,7 +246,7 @@ public class ExtensionsLoadedsGUI extends PagedCustomMenu {
                 .getListeners(ext);
         if (listenerList != null) listeners = listenerList.size();
 
-        int tasks = ext.activeTasks.size();
+        int tasks = ext.getTaskManager().getScheduler().getAllTasks().size();
 
         return Stream.of(
                 "§eDescription: §a" + ext.getExtensionDescription(),

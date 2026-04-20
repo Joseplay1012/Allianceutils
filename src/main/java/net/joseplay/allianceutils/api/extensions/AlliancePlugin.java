@@ -1,9 +1,8 @@
 package net.joseplay.allianceutils.api.extensions;
 
-import net.joseplay.allianceutils.Allianceutils;
 import net.joseplay.allianceutils.api.extensions.interfaces.AllianceUtilsExtension;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +31,7 @@ public abstract class AlliancePlugin implements AllianceUtilsExtension {
     /**
      * Internal SLF4J logger for low-level logging.
      */
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(AlliancePlugin.class);
+    public final org.slf4j.Logger log = LoggerFactory.getLogger(AlliancePlugin.class);
 
     /**
      * Directory where extension-specific data is stored.
@@ -59,8 +58,14 @@ public abstract class AlliancePlugin implements AllianceUtilsExtension {
 
     /**
      * Tracks active scheduled tasks for proper lifecycle management.
-     */
+    */
+    @Deprecated(forRemoval = true)
     public final Set<BukkitTask> activeTasks = ConcurrentHashMap.newKeySet();
+
+    /**
+     * Tracks active scheduled tasks for proper lifecycle management.
+     */
+    public final AllianceTaskManager taskManager = new AllianceTaskManager(this);
 
     public File getDataFolder() {
         return dataFolder;
@@ -194,89 +199,82 @@ public abstract class AlliancePlugin implements AllianceUtilsExtension {
         return extensionAuthors;
     }
 
-    /**
-     * Schedules a synchronous task.
-     */
-    public BukkitTask runTask(Runnable runnable) {
-        return Bukkit.getScheduler().runTask(Allianceutils.getPlugin(), wrap(runnable));
-    }
-
-    /**
-     * Schedules a delayed synchronous task.
-     */
-    public BukkitTask runTaskLater(Runnable runnable, long delay) {
-        return Bukkit.getScheduler().runTaskLater(Allianceutils.getPlugin(), wrap(runnable), delay);
-    }
-
-    /**
-     * Schedules a repeating synchronous task and tracks it.
-     */
-    public BukkitTask runTaskTimer(Runnable runnable, long delay, long period) {
-        BukkitTask task = Bukkit.getScheduler().runTaskTimer(
-                Allianceutils.getPlugin(),
-                wrap(runnable),
-                delay,
-                period
-        );
-        activeTasks.add(task);
-        return task;
-    }
-
-    /**
-     * Schedules an asynchronous task.
-     */
-    public BukkitTask runTaskAsync(Runnable runnable) {
-        return Bukkit.getScheduler().runTaskAsynchronously(
-                Allianceutils.getPlugin(),
-                wrap(runnable)
-        );
-    }
-
-    /**
-     * Schedules a repeating asynchronous task and tracks it.
-     */
-    public BukkitTask runTaskAsyncTimer(Runnable runnable, long delay, long period) {
-        BukkitTask task = Bukkit.getScheduler().runTaskTimerAsynchronously(
-                Allianceutils.getPlugin(),
-                wrap(runnable),
-                delay,
-                period
-        );
-        activeTasks.add(task);
-        return task;
-    }
-
-    /**
-     * Wraps a runnable with centralized error handling.
-     *
-     * <p>Prevents scheduler threads from silently failing.</p>
-     */
-    private Runnable wrap(Runnable runnable) {
-        return () -> {
-            try {
-                runnable.run();
-            } catch (Throwable t) {
-                reportError("task execution", t);
-            }
-        };
-    }
-
-    /**
-     * Reports execution errors in a standardized format.
-     *
-     * @param context execution context
-     * @param t       thrown exception
-     */
-    private void reportError(String context, Throwable t) {
-        log.error("[AllianceUtils][{}] Error during {}.", extensionName, context, t);
-    }
-
     public Instant getStartTime() {
         return startTime;
     }
 
     public void setStartTime(Instant startTime) {
         this.startTime = startTime;
+    }
+
+    public AllianceTaskManager getTaskManager() {
+        return taskManager;
+    }
+
+    /**
+     * Schedules a synchronous task.
+     */
+    @Deprecated(forRemoval = true, since = "use #getTaskManager \n remove in 1.7.2")
+    public BukkitTask runTask(Runnable runnable) {
+        return taskManager.runTask(runnable);
+    }
+
+    @Deprecated(forRemoval = true, since = "use #getTaskManager \n remove in 1.7.2")
+    public BukkitTask runTask(BukkitRunnable runnable) {
+        return taskManager.runTask(runnable);
+    }
+
+
+    /**
+     * Schedules a delayed synchronous task.
+     */
+    @Deprecated(forRemoval = true, since = "use #getTaskManager \n remove in 1.7.2")
+    public BukkitTask runTaskLater(Runnable runnable, long delay) {
+        return taskManager.runTaskLater(runnable, delay);
+    }
+
+    @Deprecated(forRemoval = true, since = "use #getTaskManager \n remove in 1.7.2")
+    public BukkitTask runTaskLater(BukkitRunnable runnable, long delay) {
+        return taskManager.runTaskLater(runnable, delay);
+    }
+
+    /**
+     * Schedules a repeating synchronous task and tracks it.
+     */
+    @Deprecated(forRemoval = true, since = "use #getTaskManager \n remove in 1.7.2")
+    public BukkitTask runTaskTimer(Runnable runnable, long delay, long period) {
+        return taskManager.runTaskTimer(runnable, delay, period);
+    }
+
+    @Deprecated(forRemoval = true, since = "use #getTaskManager \n remove in 1.7.2")
+    public BukkitTask runTaskTimer(BukkitRunnable runnable, long delay, long period) {
+        return taskManager.runTaskTimer(runnable, delay, period);
+    }
+
+    /**
+     * Schedules an asynchronous task.
+     */
+    @Deprecated(forRemoval = true, since = "use #getTaskManager \n remove in 1.7.2")
+    public BukkitTask runTaskAsync(Runnable runnable) {
+        return taskManager.runTaskAsync(runnable);
+    }
+
+    @Deprecated(forRemoval = true, since = "use #getTaskManager \n remove in 1.7.2")
+    public BukkitTask runTaskAsync(BukkitRunnable runnable) {
+        return taskManager.runTaskAsync(runnable);
+    }
+
+    /**
+     * Schedules a repeating asynchronous task and tracks it.
+     */
+    @Deprecated(forRemoval = true, since = "use #getTaskManager \n remove in 1.7.2")
+    public BukkitTask runTaskAsyncTimer(Runnable runnable, long delay, long period) {
+        return taskManager.runTaskAsyncTimer(runnable, delay, period);
+    }
+
+    @Deprecated(forRemoval = true, since = "use #getTaskManager \n remove in 1.7.2")
+    public BukkitTask runTaskAsyncTimer(BukkitRunnable runnable, long delay, long period) {
+        return taskManager.runTaskAsyncTimer(runnable, delay, period);
     }
 
     /**

@@ -298,6 +298,11 @@ public class ExtensionLoader {
     private void clearExtension(ExtensionContainer container) {
         if (container.extension instanceof AlliancePlugin extension) {
 
+            if (extension.getTaskManager() != null){
+                extension.getTaskManager().getScheduler().stopAll();
+                extension.getTaskManager().getScheduler().clear();
+            }
+
             for (BukkitTask task : new ArrayList<>(extension.activeTasks)) {
                 if (task != null && !task.isCancelled()) {
                     task.cancel();
