@@ -6,6 +6,7 @@ import net.joseplay.allianceutils.Utils.messages.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Handles MySQL connection pooling using HikariCP.
@@ -38,6 +39,27 @@ public class DataBaseManager {
         this.PASSWORD = password;
 
         setupDataSource();
+        createTables();
+    }
+
+    private void createTables() {
+        try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
+
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS alcprofiles (" +
+                    "uuid VARCHAR(255) PRIMARY KEY," +
+                    "data TEXT)"
+            );
+            Logger.info("[MySQL] Tabela 'alcprofiles' verificada/criada.");
+
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS alcserverprofile (" +
+                    "id INTEGER PRIMARY KEY CHECK (id = 1)," +
+                    "data TEXT)"
+            );
+            Logger.info("[MySQL] Tabela 'alcserverprofile' verificada/criada.");
+        } catch (SQLException e) {
+            Logger.severe("[MySQL] Erro ao criar tabela:");
+            e.printStackTrace();
+        }
     }
 
     /**
